@@ -1,0 +1,82 @@
+[
+  {
+    "product_area": "Mobile App",
+    "issue_type": "Crash",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The app is crashing when the user attempts to upload photos on an Android device.",
+    "ticket_id": "T001"
+  },
+  {
+    "product_area": "Mobile App",
+    "issue_type": "Crash",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The app freezes and closes when attempting to upload pictures.",
+    "ticket_id": "T002"
+  },
+  {
+    "product_area": "Photo Upload",
+    "issue_type": "Functionality Issue",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The user reports that photo uploads consistently fail on their phone.",
+    "ticket_id": "T003"
+  },
+  {
+    "product_area": "Billing",
+    "issue_type": "Billing Error",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The user reports being charged twice for their monthly subscription this week.",
+    "ticket_id": "T004"
+  },
+  {
+    "product_area": "Billing",
+    "issue_type": "Billing Error",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The user reports being double-billed on their credit card and requests a refund for the extra charge.",
+    "ticket_id": "T005"
+  },
+  {
+    "product_area": "Login",
+    "issue_type": "Display Issue",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The login page is displaying a blank white screen when accessed via the Chrome browser.",
+    "ticket_id": "T006"
+  },
+  {
+    "product_area": "Login",
+    "issue_type": "Access Issue",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The user is unable to log in because the login page remains white and does not load.",
+    "ticket_id": "T007"
+  },
+  {
+    "product_area": "Login",
+    "issue_type": "Access Issue",
+    "urgency": "High",
+    "region": "Unspecified",
+    "summary": "The user is reporting that the password reset email is not being received.",
+    "ticket_id": "T008"
+  },
+  {
+    "product_area": "Mobile App",
+    "issue_type": "Performance",
+    "urgency": "High",
+    "region": "Europe",
+    "summary": "The mobile app is experiencing extremely slow loading times for the dashboard in Europe.",
+    "ticket_id": "T009"
+  },
+  {
+    "product_area": "Dashboard",
+    "issue_type": "Performance",
+    "urgency": "High",
+    "region": "Germany",
+    "summary": "The Dashboard is taking over a minute to load on a mobile phone in Germany.",
+    "ticket_id": "T010"
+  }
+]
