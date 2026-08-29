@@ -19,13 +19,15 @@ from google.api_core import exceptions
 # find and use those credentials. Nothing else to configure.
 # ============================================================
 
-repo_root = Path(__file__).resolve().parent.parent.parent
+repo_root = Path(__file__).resolve().parent.parent
 dotenv_path = repo_root / ".env"
 load_dotenv(dotenv_path)
 
 PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = "us-east1"
-EMBEDDING_MODEL_NAME = "text-embedding-004"  # kept same as before so vector
+EMBEDDING_MODEL_NAME = "text-embedding-004"  
+
+# kept same as before so vector
 # dimensions (768) still match your existing Vector Search index.
 # If you want to move to the newer "gemini-embedding-001" model later,
 # you must set output_dimensionality=768 in EmbedContentConfig below,
@@ -35,10 +37,12 @@ if not PROJECT_ID:
     raise EnvironmentError("GCP_PROJECT_ID is not set. Add it to .env or export it before running the script.")
 
 # CHANGE THIS to the exact bucket name you created in Step 2.2
-BUCKET_NAME = "epc-platform-502906-embeddings9"
+BUCKET_NAME = "epc-platform-507008-embeddings"
 
-INPUT_FILE = "../data/historical_incidents.json"
-OUTPUT_LOCAL_FILE = "embeddings9_output.json"
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+INPUT_FILE = str(PROJECT_ROOT / "data" / "historical_incidents.json")
+OUTPUT_LOCAL_FILE = str(PROJECT_ROOT / "data" / "embeddings9_output.json")
 GCS_DESTINATION_FOLDER = "embeddings"
 
 client = genai.Client(

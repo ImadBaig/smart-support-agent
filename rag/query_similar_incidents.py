@@ -17,7 +17,7 @@ from google.cloud import aiplatform
 #     gcloud auth application-default login
 # ============================================================
 
-repo_root = Path(__file__).resolve().parent.parent.parent
+repo_root = Path(__file__).resolve().parent.parent
 load_dotenv(repo_root / ".env")
 
 PROJECT_ID = os.getenv("GCP_PROJECT_ID")

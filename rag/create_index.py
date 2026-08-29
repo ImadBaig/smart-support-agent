@@ -13,7 +13,7 @@ from google.cloud import aiplatform
 #     gcloud auth application-default login
 # ============================================================
 
-repo_root = Path(__file__).resolve().parent.parent.parent
+repo_root = Path(__file__).resolve().parent.parent
 dotenv_path = repo_root / ".env"
 load_dotenv(dotenv_path)
 
@@ -25,7 +25,7 @@ if not PROJECT_ID:
         "GCP_PROJECT_ID is not set. Add it to your .env file."
     )
 
-BUCKET_NAME = "epc-platform-502906-embeddingsw2"
+BUCKET_NAME = "epc-platform-507008-embeddings"
 
 aiplatform.init(
     project=PROJECT_ID,

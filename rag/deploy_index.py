@@ -12,7 +12,7 @@ from google.cloud import aiplatform
 #     gcloud auth application-default login
 # ============================================================
 
-repo_root = Path(__file__).resolve().parent.parent.parent
+repo_root = Path(__file__).resolve().parent.parent
 dotenv_path = repo_root / ".env"
 load_dotenv(dotenv_path)
 
