@@ -12,8 +12,9 @@ from google.api_core.exceptions import (
 from meaning_extraction_agent import extract_ticket_meaning
 
 ROOT_DIR = Path(__file__).resolve().parent
-INPUT_FILE = "../data/sample_tickets.json"
-OUTPUT_FILE = "../data/extracted_output.json"
+PROJECT_ROOT = ROOT_DIR.parent
+INPUT_FILE = str(PROJECT_ROOT / "data" / "sample_tickets.json")
+OUTPUT_FILE = str(PROJECT_ROOT / "data" / "extracted_output.json")  
 
 
 MAX_RETRIES = 15
