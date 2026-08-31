@@ -23,8 +23,7 @@ if not PROJECT_ID:
     raise EnvironmentError("GCP_PROJECT_ID is not set. Add it to your .env file.")
 
 # PASTE the full "Index resource name" you copied from Step 2.8
-INDEX_RESOURCE_NAME = "projects/411440897339/locations/us-east1/indexes/1586828375345856512"
-
+INDEX_RESOURCE_NAME ="projects/546363762178/locations/us-east1/indexes/2737709186371551232"
 aiplatform.init(project=PROJECT_ID, location=LOCATION)
 
 index = aiplatform.MatchingEngineIndex(index_name=INDEX_RESOURCE_NAME)

@@ -20,7 +20,7 @@ PROJECT_ID = os.getenv("GCP_PROJECT_ID")
 LOCATION = "us-east1"
 
 # PASTE your Index Endpoint resource name from Step 2.9
-INDEX_ENDPOINT_RESOURCE_NAME = "projects/411440897339/locations/us-east1/indexEndpoints/1220875721249914880"
+INDEX_ENDPOINT_RESOURCE_NAME = "projects/546363762178/locations/us-east1/indexEndpoints/307067209358770176"
 DEPLOYED_INDEX_ID = "epc_incidents_deployed"
 
 aiplatform.init(project=PROJECT_ID, location=LOCATION)

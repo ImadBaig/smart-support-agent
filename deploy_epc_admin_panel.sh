@@ -1,4 +1,5 @@
-# Run this file with chmod +x deploy_epc_admin_panel.sh 
+# Run this file with 
+# chmod +x deploy_epc_admin_panel.sh 
 # ./deploy_epc_admin_panel.sh
 
 

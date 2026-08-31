@@ -37,12 +37,13 @@ if not PROJECT_ID:
     raise EnvironmentError("GCP_PROJECT_ID is not set. Add it to .env or export it before running the script.")
 
 # CHANGE THIS to the exact bucket name you created in Step 2.2
-BUCKET_NAME = "epc-platform-507008-embeddings"
+BUCKET_NAME = "epc-platform-507008-embeddings12"
 
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BASE_DIR.parent
 INPUT_FILE = str(PROJECT_ROOT / "data" / "historical_incidents.json")
 OUTPUT_LOCAL_FILE = str(PROJECT_ROOT / "data" / "embeddings9_output.json")
+
 GCS_DESTINATION_FOLDER = "embeddings"
 
 client = genai.Client(
