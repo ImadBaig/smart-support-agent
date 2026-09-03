@@ -35,7 +35,7 @@ if not PROJECT_ID:
     )
 
 # Vertex AI location
-LOCATION = "us"
+LOCATION = os.getenv("GCP_LOCATION", "us-east1")
 
 
 # =====================================================================
@@ -100,7 +100,7 @@ def extract_ticket_meaning(ticket_payload: dict) -> dict:
     )
 
     # Target the specific lightweight model requested
-    MODEL_ID = "gemini-3.1-flash-lite"
+    MODEL_ID = "gemini-2.5-flash"
 
     # Define our system instructions to set the agent's persona and rules
     system_instruction = (
