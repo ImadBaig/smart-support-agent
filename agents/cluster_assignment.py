@@ -31,7 +31,6 @@ def get_embedding(text: str) -> list[float]:
     )
     return result.embeddings[0].values
 
-
 def get_ticket_embedding(ticket_id: str, ticket_doc: dict | None = None) -> list[float]:
     """Embedding for a ticket, cached on the Firestore doc so repeat linkage
     comparisons (average/complete linkage touch every member) don't re-call
@@ -43,7 +42,12 @@ def get_ticket_embedding(ticket_id: str, ticket_doc: dict | None = None) -> list
     if "embedding" in ticket_doc:
         return ticket_doc["embedding"]
 
-    embedding = get_embedding(ticket_doc["raw_text"])
+    # Fallback to 'summary' if 'raw_text' is missing (e.g. for migrated historical tickets)
+    text_to_embed = ticket_doc.get("raw_text") or ticket_doc.get("summary")
+    if not text_to_embed:
+        raise KeyError(f"Ticket {ticket_id} is missing both 'raw_text' and 'summary' fields.")
+
+    embedding = get_embedding(text_to_embed)
     ticket_ref.update({"embedding": embedding})
     return embedding
 
