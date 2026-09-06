@@ -1,4 +1,6 @@
 #!/bin/bash
+# chmod +x testrun_workflow.sh
+# ./testrun_workflow.sh
 
 set -e
 

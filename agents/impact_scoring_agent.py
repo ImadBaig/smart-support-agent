@@ -1,9 +1,12 @@
 import os
 import json
+import time
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from google.genai.errors import APIError
 from google.cloud import firestore
+from tenacity import retry, stop_after_attempt, wait_random_exponential, retry_if_exception_type
 
 load_dotenv()
 
@@ -57,11 +60,24 @@ Respond with ONLY a valid JSON object:
 }}
 """
 
-# Old SDK: vertexai.init(project=PROJECT_ID, location=LOCATION) + GenerativeModel(MODEL_NAME)
-# New SDK: same Vertex AI backend (auth via project ID + ADC, no API key needed),
-# just called through the updated google-genai client.
 client = genai.Client(vertexai=True, project=PROJECT_ID, location=LOCATION)
 db = firestore.Client(project=PROJECT_ID, database=DATABASE_ID)
+
+
+# Helper function with Exponential Backoff retry for API calls
+@retry(
+    wait=wait_random_exponential(min=2, max=60),
+    stop=stop_after_attempt(5),
+    retry=retry_if_exception_type(APIError),
+    reraise=True
+)
+def generate_content_with_retry(prompt: str) -> str:
+    response = client.models.generate_content(
+        model=MODEL_NAME,
+        contents=prompt,
+        config=types.GenerateContentConfig(response_mime_type="application/json"),
+    )
+    return response.text
 
 
 def score_cluster(cluster: dict, ticket_texts: list[str]) -> dict:
@@ -72,12 +88,8 @@ def score_cluster(cluster: dict, ticket_texts: list[str]) -> dict:
         ticket_list=ticket_list,
     )
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=prompt,
-        config=types.GenerateContentConfig(response_mime_type="application/json"),
-    )
-    result = json.loads(response.text)
+    response_text = generate_content_with_retry(prompt)
+    result = json.loads(response_text)
 
     # Self-reflection pass: check the score against a rubric before finalizing
     reflection_prompt = REFLECTION_PROMPT_TEMPLATE.format(
@@ -86,12 +98,9 @@ def score_cluster(cluster: dict, ticket_texts: list[str]) -> dict:
         rationale=result["rationale"],
         ticket_count=cluster["ticket_count"],
     )
-    reflection_response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=reflection_prompt,
-        config=types.GenerateContentConfig(response_mime_type="application/json"),
-    )
-    reflection_result = json.loads(reflection_response.text)
+    
+    reflection_response_text = generate_content_with_retry(reflection_prompt)
+    reflection_result = json.loads(reflection_response_text)
 
     if not reflection_result["consistent"]:
         result["severity"] = reflection_result["corrected_severity"]
@@ -133,3 +142,6 @@ if __name__ == "__main__":
         result = score_cluster_by_id(cluster_id)
         print(f"{cluster_id}: score={result['impact_score']} severity={result['severity']}")
         print(f"  rationale: {result['rationale']}\n")
+        
+        # Adding a 1 second delay between clusters to avoid hitting quota limits aggressively
+        time.sleep(1)
