@@ -7,7 +7,7 @@
 set -e
 
 export GCP_PROJECT_ID="epc-platform-507008"
-export FIRESTORE_DATABASE_ID="epcfirestoredb"
+export FIRESTORE_DATABASE_ID="ebc-firestone"
 
 gcloud run deploy epc-pipeline-service \
   --source . \
